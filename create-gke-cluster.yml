@@ -4,8 +4,6 @@
 - name: Create a GKE cluster
   hosts: localhost
   gather_facts: false  
-
-  
   roles:
       - gke_cluster_create
       
