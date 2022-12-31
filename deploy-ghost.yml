@@ -5,7 +5,7 @@
    hosts: localhost  
    gather_facts: false  
    environment:    
-     GOOGLE_CREDENTIALS: "{{ gcp_cred_file }}"     
+     GOOGLE_CREDENTIALS: "/home/daniel/Desktop/ASCN/ascn-credentials.json"     
    roles:    
-     - deploy-ghost
-     - deploy-mysql
+     - ghost
+     - mysql

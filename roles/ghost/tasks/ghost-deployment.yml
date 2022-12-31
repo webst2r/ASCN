@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ghost-deployment
-  namespace: ascn-cluster
   labels:
     app: ghost
 spec:
@@ -19,17 +18,18 @@ spec:
       - name: ghost
         image: ghost:latest
         env:
-        - name: dbclient
+        - name: db_client
           value: mysql
-        - name: dbhost
+        - name: db_host
           value: mysql-service
-        - name: dbuser
+        - name: db_user
           value: ghostuser
-        - name: dbpassword
-          value: pass
-        - name: dbname
+        - name: db_password
+          value: "123456"
+        - name: db_name
           value: ghost
         - name: url
           value: http://ghost.org
         ports:
         - containerPort: 2368 
+          protocol: TCP 

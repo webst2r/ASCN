@@ -1,11 +1,8 @@
 ---
 # Playbook to undeploy Ghost and its component
-# TO DO
----
- - name: undeploy application
-   hosts: localhost  
-   gather_facts: false  
-   environment:    
-     GOOGLE_CREDENTIALS: "{{ gcp_cred_file }}"     
-   roles:    
-     - undeploy-ghost
+- name: Delete
+  hosts: localhost 
+  roles:
+      - undeploy-ghost
+  tags:
+      - deleteAll
