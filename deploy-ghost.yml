@@ -1,6 +1,11 @@
 ---
 # Playbook to deploy Ghost and its components
 
+- name: Create namespace
+  hosts: localhost  
+  gather_facts: false  
+  roles:
+    - create_namespace
 
 - name: Create secret
   hosts: localhost  
