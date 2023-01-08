@@ -1,11 +1,16 @@
 ---
 # Playbook to deploy Ghost and its components
-# TO DO
- - name: deploy application
-   hosts: localhost  
-   gather_facts: false  
-   environment:    
-     GOOGLE_CREDENTIALS: "/home/daniel/Desktop/ASCN/ascn-credentials.json"     
-   roles:    
-     - ghost
-     - mysql
+
+
+- name: Create secret
+  hosts: localhost  
+  gather_facts: false  
+  roles:
+    - create_secret
+    
+- name: Deploy application
+  hosts: localhost  
+  gather_facts: false  
+  roles:
+    - mysql    
+    - ghost

@@ -1,0 +1,25 @@
+---
+# Cria um namespace
+- name: Create namespace
+  kubernetes.core.k8s:
+    state: present
+    definition:
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: "{{ namespace }}"
+        labels:
+          app: "{{ namespace }}"
+
+- name: Create secret
+  kubernetes.core.k8s:
+    namespace: "{{ namespace }}"
+    definition:
+      apiVersion: v1
+      kind: Secret
+      metadata:
+        name: ghost-data
+      type: Opaque
+      data: 
+        password: UGFzc3dvcmQkMTIzNDU2  # Password$123456
+        root_password: UGFzc3dvcmQkMTIzNDU2  # Password$123456

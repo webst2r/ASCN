@@ -5,7 +5,7 @@ all:
   # GKE cluster variables
   gcp_project: ascn-tp-g17           # ID of GCP Project
   gcp_auth_kind: serviceaccount            # Do not change
-  gcp_cred_file: /home/daniel/Desktop/ASCN/ascn-credentials.json  # Path to service account keys (json file downloaded from GCP)
+  gcp_cred_file: /home/webst2r/Desktop/ASCN-tp/ascn-credentials.json # Path to service account keys (json file downloaded from GCP)
 
   gcp_zone: us-central1-a
   gcp_image_type: ubuntu_containerd
@@ -15,14 +15,20 @@ all:
 
 
   # APP variables
-  ghost_ip: 35.239.139.139  # Needs to be updated
-  ghost_port: 2368       # Needs to be updated
+  ghost_ip: <GHOST_SERVICE_IP>     # Needs to be updated
+  ghost_port: <GHOST_PORT>         # Needs to be updated
 
 
   # Additional variables
-  app : ghost
-  app_image: ghost:latest
-  
-  ghost_db_name: ghost
-  ghost_db_user: ghostuser
-  ghost_db_password: "123456" 
+
+  # MySQL variables 
+  database: ghost
+  database_user: ghost 
+  database_port: 3306
+
+  # Ghost variables 
+  default_ghost_port: 2368
+  ghost_image_version : ghost:5.14.1
+  n_replicas: 2
+  # Others variables 
+  namespace: default 
