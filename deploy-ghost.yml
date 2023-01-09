@@ -12,7 +12,7 @@
   gather_facts: false  
   roles:
     - create_secret
-    
+
 - name: Deploy application
   hosts: localhost  
   gather_facts: false  

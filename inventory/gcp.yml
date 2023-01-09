@@ -5,7 +5,7 @@ all:
   # GKE cluster variables
   gcp_project: ascn-tp-g17           # ID of GCP Project
   gcp_auth_kind: serviceaccount            # Do not change
-  gcp_cred_file: /home/webst2r/Desktop/ASCN-tp/ascn-credentials.json # Path to service account keys (json file downloaded from GCP)
+  gcp_cred_file: /home/webst2r/Desktop/ASCN-tp-fase2/ascn-credentials.json # Path to service account keys (json file downloaded from GCP)
 
   gcp_zone: us-central1-a
   gcp_image_type: ubuntu_containerd
@@ -31,4 +31,6 @@ all:
   ghost_image_version : ghost:5.14.1
   n_replicas: 2
   # Others variables 
-  namespace: default 
+  namespace: default
+  
+  username_mailtrap: fd2979bf1c181e

@@ -96,6 +96,23 @@
                         value: "{{ database }}"
                       - name: url
                         value: "http://{{ ghost_ip }}/"
+                      - name: mail__transport
+                        value: SMTP
+                      - name: mail__options__secure
+                        value: "false"
+                      - name: mail__options__service
+                        value: "Mailtrap"
+                      - name: mail__options__host
+                        value: "smtp.mailtrap.io"
+                      - name: mail__options__port 
+                        value: "2525"
+                      - name: mail__options__auth__user
+                        value: "{{ username_mailtrap }}"
+                      - name: mail__options__auth__pass
+                        valueFrom:
+                          secretKeyRef:
+                            name: ghost-data
+                            key: passwordMailtrap
                     volumeMounts:
                     - mountPath: /var/lib/ghost/content
                       name: ghost-pvclaim
@@ -104,8 +121,29 @@
                     persistentVolumeClaim:
                       claimName: ghost-pvclaim
 
+# Serve para descobrir o nome dos pods onde estão o mysql para depois criarmos uma conta admin
+- name: Search for all pods from mysql 
+  kubernetes.core.k8s_info:
+    kind: Pod
+    label_selectors:
+      - app = ghost
+      - tier in (mysql)
+  register: mysql_pod
 
+- name: Wait
+  wait_for:
+    timeout: 120
 
-
-#- debug:
-#    var: ghost_ip  
+# Nota: Neste momento só está a executar num pod só, é mudar a parte da password para usar através de secret
+- name: Creating admin account 
+  kubernetes.core.k8s_exec:
+    namespace: "{{ namespace }}"
+    pod: "{{ mysql_pod.resources[0].metadata.name }}"
+    command: mysql -h localhost -u ghost -p'Password$123456' -e 'use ghost; update users set name="ascn", password="\$2b\$10\$Z9SYrWRxf7i0dzx6jC.39uIQVtQqpUTGhRmqEkHhrKlewPRxy9MU.", email="ascn@example.com", status="active" where id=1;'
+     
+     
+    #command: mysql -h localhost -u ghost -p'Password$123456' -e 'use ghost; update users set name="ascn", password="\$2b\$10\$Z9SYrWRxf7i0dzx6jC.39uIQVtQqpUTGhRmqEkHhrKlewPRxy9MU.", email="ascn@example.com", status="active" where id=1;'
+  #register: admin_created
+  #until: "admin_created is not failed"
+  #retries: 5 
+  #delay: 20
