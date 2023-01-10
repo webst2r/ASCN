@@ -140,10 +140,10 @@
     namespace: "{{ namespace }}"
     pod: "{{ mysql_pod.resources[0].metadata.name }}"
     command: mysql -h localhost -u ghost -p'Password$123456' -e 'use ghost; update users set name="ascn", password="\$2b\$10\$Z9SYrWRxf7i0dzx6jC.39uIQVtQqpUTGhRmqEkHhrKlewPRxy9MU.", email="ascn@example.com", status="active" where id=1;'
+  register: admin_created
+  until: "admin_created is not failed"
+  retries: 5 
+  delay: 20
+  
+  #command: mysql -h localhost -u ghost -p'Password$123456' -e 'use ghost; update users set name="ascn", password="\$2b\$10\$Z9SYrWRxf7i0dzx6jC.39uIQVtQqpUTGhRmqEkHhrKlewPRxy9MU.", email="ascn@example.com", status="active" where id=1;'
      
-     
-    #command: mysql -h localhost -u ghost -p'Password$123456' -e 'use ghost; update users set name="ascn", password="\$2b\$10\$Z9SYrWRxf7i0dzx6jC.39uIQVtQqpUTGhRmqEkHhrKlewPRxy9MU.", email="ascn@example.com", status="active" where id=1;'
-  #register: admin_created
-  #until: "admin_created is not failed"
-  #retries: 5 
-  #delay: 20

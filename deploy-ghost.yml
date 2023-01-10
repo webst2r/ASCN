@@ -19,3 +19,9 @@
   roles:
     - mysql    
     - ghost
+
+- name: Monitoring App
+  hosts: localhost
+  gather_facts: false
+  roles:
+    - monitoring
