@@ -11,3 +11,10 @@ ansible-playbook -i inventory/gcp.yml deploy-ghost.yml --ask-vault-pass
 kubectl get all
 // para outro namespace
 kubectl get all -n <nome_do_namespace>
+
+### Ativar APIs de monitoring
+gcloud services enable monitoring --project=ascn-tp-g17
+
+gcloud services enable compute.googleapis.com
+gcloud services enable monitoring.googleapis.com
+gcloud services enable cloudbuild.googleapis.com 
